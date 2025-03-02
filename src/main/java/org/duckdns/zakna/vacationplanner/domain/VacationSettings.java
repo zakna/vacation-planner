@@ -4,7 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class VacationSettings {
 
@@ -13,19 +17,4 @@ public class VacationSettings {
     private Long id;
     private int vacationDays;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public int getVacationDays() {
-        return vacationDays;
-    }
-
-    public void setVacationDays(int vacationDays) {
-        this.vacationDays = vacationDays;
-    }
 }
