@@ -1,6 +1,5 @@
-package domain;
+package org.duckdns.zakna.vacationplanner.domain;
 
-import org.duckdns.zakna.vacationplanner.domain.VacationSettings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

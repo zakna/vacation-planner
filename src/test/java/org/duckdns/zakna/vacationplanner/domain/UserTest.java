@@ -1,6 +1,5 @@
-package domain;
+package org.duckdns.zakna.vacationplanner.domain;
 
-import org.duckdns.zakna.vacationplanner.domain.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
