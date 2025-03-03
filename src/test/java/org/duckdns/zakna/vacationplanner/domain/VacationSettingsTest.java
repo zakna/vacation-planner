@@ -29,22 +29,22 @@ public class VacationSettingsTest {
     @Test
     public void shouldSetAndGetVacationDays() {
         int expectedDays = 35;
-        vacationSettings.setVacationDays(expectedDays);
-        assertEquals(expectedDays, vacationSettings.getVacationDays());
+        vacationSettings.setAvailableVacationDays(expectedDays);
+        assertEquals(expectedDays, vacationSettings.getAvailableVacationDays());
     }
 
     @Test
     public void shouldHaveDefaultValuesWhenCreated() {
         assertNull(vacationSettings.getId());
-        assertEquals(0, vacationSettings.getVacationDays());
+        assertEquals(0, vacationSettings.getAvailableVacationDays());
     }
 
 
     @Test
     public void shouldUpdateVacationDaysWhenSetMultipleTimes() {
-        vacationSettings.setVacationDays(10);
-        assertEquals(10, vacationSettings.getVacationDays());
-        vacationSettings.setVacationDays(20);
-        assertEquals(20, vacationSettings.getVacationDays());
+        vacationSettings.setAvailableVacationDays(10);
+        assertEquals(10, vacationSettings.getAvailableVacationDays());
+        vacationSettings.setAvailableVacationDays(20);
+        assertEquals(20, vacationSettings.getAvailableVacationDays());
     }
 }

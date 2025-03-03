@@ -22,7 +22,7 @@ Feature: visual-vacation-planning
 
   Scenario: Olivier confirms a vacation period
     Given Olivier has selected June 10 to June 14 on the calendar
-    When Olivier enters "Summer Break" as the vacation title
+    When Olivier enters "Summer Break" as the vacation description
     And Olivier confirms this vacation period
     Then those days should be marked as vacation days on the calendar
     And "Summer Break" should appear in Olivier's list of planned vacations
