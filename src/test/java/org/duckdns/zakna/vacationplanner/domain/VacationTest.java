@@ -41,7 +41,23 @@ public class VacationTest {
     }
 
     @Test
-    public void shouldBeAbleToCreateVacationwithDescription() {
+    public void shouldBeAbleToComputeVacationDaysAcrossMonths() {
+        Vacation vacation = new Vacation();
+        vacation.setStartDate(LocalDate.of(2025, 10, 1));
+        vacation.setEndDate(LocalDate.of(2025, 11, 1));
+        assertEquals(32, vacation.getVacationDays());
+    }
+
+    @Test
+    public void shouldBeAbleToComputeVacationDaysForOneDayVacation() {
+        Vacation vacation = new Vacation();
+        vacation.setStartDate(LocalDate.of(2025, 10, 1));
+        vacation.setEndDate(LocalDate.of(2025, 10, 1));
+        assertEquals(1, vacation.getVacationDays());
+    }
+
+    @Test
+    public void shouldBeAbleToCreateVacationWithDescription() {
         Vacation vacation = new Vacation();
         vacation.setDescription("Test");
         assertEquals("Test", vacation.getDescription());
