@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface VacationRepository extends JpaRepository<Vacation, Long> {
     Optional<Vacation> findVacationByDescription(String description);
-    Optional <List<Vacation>> findVacationsByUser(User user);
+     List<Vacation> findVacationsByUser(User user);
 }

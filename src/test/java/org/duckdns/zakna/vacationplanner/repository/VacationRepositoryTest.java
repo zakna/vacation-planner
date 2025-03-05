@@ -60,7 +60,7 @@ public class VacationRepositoryTest {
 
         vacationRepository.save(vacation);
 
-        List<Vacation> foundVacations = vacationRepository.findVacationsByUser(user).orElse(null);
+        List<Vacation> foundVacations = vacationRepository.findVacationsByUser(user);
 
         assertNotNull(foundVacations);
         assertEquals(1, foundVacations.size());
