@@ -33,14 +33,16 @@ public class VacationServiceImpl implements VacationService {
         return vacationRepository.save(vacation);
     }
 
+
+
     @Override
-    public List<Vacation> getVacationByDescription(String description) {
-        return List.of();
+    public List<Vacation> getVacationsByUser(String username) {
+        return vacationRepository.findVacationsByUser(userService.getOrCreateUser(username));
     }
 
     @Override
-    public List<Vacation> getVacationByUser(String username) {
-        return List.of();
+    public Vacation getVacation(String userName, String description) {
+        return null;
     }
 
     @Override

@@ -8,9 +8,9 @@ import java.util.List;
 public interface VacationService {
     Vacation createVacation(String description, String username, LocalDate startDate, LocalDate endDate);
 
-    List<Vacation> getVacationByDescription(String description);
+    List<Vacation> getVacationsByUser(String username);
 
-    List<Vacation> getVacationByUser(String username);
+    Vacation getVacation(String userName, String description);
 
     void cancelVacation(String description, String username);
 
