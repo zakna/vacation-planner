@@ -41,8 +41,8 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public Vacation getVacation(String userName, String description) {
-        return null;
+    public Vacation getVacation(Long id) {
+        return vacationRepository.getReferenceById(id);
     }
 
     @Override

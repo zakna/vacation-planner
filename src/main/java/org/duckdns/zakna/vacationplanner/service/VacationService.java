@@ -10,7 +10,7 @@ public interface VacationService {
 
     List<Vacation> getVacationsByUser(String username);
 
-    Vacation getVacation(String userName, String description);
+    Vacation getVacation(Long id);
 
     void cancelVacation(String description, String username);
 

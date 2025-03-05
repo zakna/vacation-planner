@@ -50,6 +50,7 @@ public class VacationServiceTest {
         Vacation actualVacation = vacationServiceImpl.createVacation(Vacation1Description, userName, startDate, endDate);
         assertEquals(expectedVacation, actualVacation);
         verify(vacationRepository).save(any(Vacation.class));
+        verify(userService).getOrCreateUser(any(String.class));
     }
 
     @Test
@@ -81,12 +82,37 @@ public class VacationServiceTest {
 
         List<Vacation> expectedVacations = List.of(expectedVacation1, expectedVacation2);
 
-        // mock the user services returning the user
         when(userService.getOrCreateUser(userName)).thenReturn(expectedUser);
-        // mock the vacationRepository to return a list of vacations
         when(vacationRepository.findVacationsByUser(expectedUser)).thenReturn(expectedVacations);
 
         List<Vacation> actualVacations = vacationServiceImpl.getVacationsByUser(userName);
         assertEquals(expectedVacations, actualVacations);
+        verify(vacationRepository).findVacationsByUser(expectedUser);
+    }
+    @Test
+    public void shouldReturnVacationById(){
+        String Vacation1Description = "Carnaval";
+        String userName = "Olivier";
+        LocalDate startDate = LocalDate.of(2025, 3, 10);
+        LocalDate endDate = LocalDate.of(2025, 3, 15);
+
+        User expectedUser = new User();
+        expectedUser.setUsername(userName);
+
+        Vacation expectedVacation = new Vacation();
+        expectedVacation.setDescription(Vacation1Description);
+        expectedVacation.setStartDate(startDate);
+        expectedVacation.setEndDate(endDate);
+        expectedVacation.setUser(expectedUser);
+        expectedVacation.setId(1L);
+
+        Long expectedId = expectedVacation.getId();
+
+        when(vacationRepository.getReferenceById(any(Long.class))).thenReturn(expectedVacation);
+
+        Long actualId = vacationServiceImpl.getVacation(expectedId).getId();
+        assertEquals(expectedId,actualId);
+
+        verify(vacationRepository).getReferenceById(any(Long.class));
     }
 }
