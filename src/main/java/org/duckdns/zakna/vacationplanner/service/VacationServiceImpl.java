@@ -51,7 +51,7 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public Vacation UpdateVacation(String description, String username, LocalDate startDate, LocalDate endDate) {
+    public Vacation updateVacation(String description, String username, LocalDate startDate, LocalDate endDate) {
         return null;
     }
 
