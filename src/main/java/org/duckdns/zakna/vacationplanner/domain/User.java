@@ -24,4 +24,5 @@ public class User {
     private String username;
     @OneToMany(mappedBy = "user")
     private List<Vacation> vacations;
+    private int availableVacationDays;
 }
