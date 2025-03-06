@@ -12,7 +12,7 @@ public interface VacationService {
 
     Vacation getVacation(Long id);
 
-    void cancelVacation(String description, String username);
+    void cancelVacation(Long id);
 
     Vacation UpdateVacation(String description, String username, LocalDate startDate, LocalDate endDate);
 

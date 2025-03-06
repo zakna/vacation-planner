@@ -46,8 +46,8 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public void cancelVacation(String description, String username) {
-
+    public void cancelVacation(Long id) {
+        vacationRepository.deleteById(id);
     }
 
     @Override

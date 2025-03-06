@@ -115,4 +115,11 @@ public class VacationServiceTest {
 
         verify(vacationRepository).getReferenceById(any(Long.class));
     }
+
+    @Test
+    public void shouldCancelVacationById(){
+        Long expectedId = 1L;
+        vacationServiceImpl.cancelVacation(expectedId);
+        verify(vacationRepository).deleteById(expectedId);
+    }
 }
