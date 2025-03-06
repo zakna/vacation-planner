@@ -10,10 +10,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +29,8 @@ public class VacationServiceTest {
     private UserService userService;
 
     @InjectMocks
-    private VacationServiceImpl vacationServiceImpl;
+    private VacationServiceImpl vacationService;
+
 
     @Test
     public void shouldCreateAVacation() {
@@ -47,7 +51,7 @@ public class VacationServiceTest {
         when(userService.getOrCreateUser(userName)).thenReturn(expectedUser);
         when(vacationRepository.save(any(Vacation.class))).thenReturn(expectedVacation);
 
-        Vacation actualVacation = vacationServiceImpl.createVacation(Vacation1Description, userName, startDate, endDate);
+        Vacation actualVacation = vacationService.createVacation(Vacation1Description, userName, startDate, endDate);
         assertEquals(expectedVacation, actualVacation);
         verify(vacationRepository).save(any(Vacation.class));
         verify(userService).getOrCreateUser(any(String.class));
@@ -85,12 +89,13 @@ public class VacationServiceTest {
         when(userService.getOrCreateUser(userName)).thenReturn(expectedUser);
         when(vacationRepository.findVacationsByUser(expectedUser)).thenReturn(expectedVacations);
 
-        List<Vacation> actualVacations = vacationServiceImpl.getVacationsByUser(userName);
+        List<Vacation> actualVacations = vacationService.getVacationsByUser(userName);
         assertEquals(expectedVacations, actualVacations);
         verify(vacationRepository).findVacationsByUser(expectedUser);
     }
+
     @Test
-    public void shouldReturnVacationById(){
+    public void shouldReturnVacationById() {
         String Vacation1Description = "Carnaval";
         String userName = "Olivier";
         LocalDate startDate = LocalDate.of(2025, 3, 10);
@@ -110,16 +115,55 @@ public class VacationServiceTest {
 
         when(vacationRepository.getReferenceById(any(Long.class))).thenReturn(expectedVacation);
 
-        Long actualId = vacationServiceImpl.getVacation(expectedId).getId();
-        assertEquals(expectedId,actualId);
+        Long actualId = vacationService.getVacation(expectedId).getId();
+        assertEquals(expectedId, actualId);
 
         verify(vacationRepository).getReferenceById(any(Long.class));
     }
 
     @Test
-    public void shouldCancelVacationById(){
+    public void shouldCancelVacationById() {
         Long expectedId = 1L;
-        vacationServiceImpl.cancelVacation(expectedId);
+        vacationService.cancelVacation(expectedId);
         verify(vacationRepository).deleteById(expectedId);
+    }
+
+    @Test
+    public void shouldCreateAndCancelVacation() {
+        String vacation1Description = "Carnaval";
+        String userName = "Olivier";
+        LocalDate startDate = LocalDate.of(2025, 3, 10);
+        LocalDate endDate = LocalDate.of(2025, 3, 15);
+
+        User user = new User();
+        user.setUsername(userName);
+
+        Vacation expectedVacation = new Vacation();
+        expectedVacation.setDescription(vacation1Description);
+        expectedVacation.setStartDate(startDate);
+        expectedVacation.setEndDate(endDate);
+        expectedVacation.setUser(user);
+        expectedVacation.setId(1L);
+
+        List<Vacation> emptyVacationList = new ArrayList<>();
+
+        when(userService.getOrCreateUser(userName)).thenReturn(user);
+        when(vacationRepository.save(any(Vacation.class))).thenReturn(expectedVacation);
+        when(vacationRepository.findVacationsByUser(user)).thenReturn(emptyVacationList);
+
+        Vacation actualVacation = vacationService.createVacation(vacation1Description, userName, startDate, endDate);
+
+        assertThat(actualVacation)
+                .usingRecursiveComparison()
+                .isEqualTo(expectedVacation);
+
+        vacationService.cancelVacation(actualVacation.getId());
+        verify(vacationRepository).deleteById(actualVacation.getId());
+
+        List<Vacation> vacationListAfterDeletion = vacationService.getVacationsByUser(userName);
+        assertEquals(emptyVacationList, vacationListAfterDeletion);
+        verify(userService, times(2)).getOrCreateUser(userName);
+        verify(vacationRepository).save(any(Vacation.class));
+        verify(vacationRepository).findVacationsByUser(user);
     }
 }
