@@ -166,4 +166,35 @@ public class VacationServiceTest {
         verify(vacationRepository).save(any(Vacation.class));
         verify(vacationRepository).findVacationsByUser(user);
     }
+
+    @Test
+    public void shouldReturnRemainingVacationDays() {
+        String userName = "Olivier";
+        int availableVacationDays = 35;
+
+        User user = new User();
+        user.setUsername(userName);
+        user.setAvailableVacationDays(availableVacationDays);
+
+        when(userService.getOrCreateUser(userName)).thenReturn(user);
+
+        int actualDays = vacationService.getRemainingVacationDays(userName);
+        assertEquals(availableVacationDays, actualDays);
+        verify(userService).getOrCreateUser(userName);
+
+    }
+
+    @Test
+    public void shouldGetZeroVacationDaysIftheUserIsCreated() {
+        String userName = "Olivier";
+        int expectedVacationDays = 0;
+        User newUser = new User();
+        newUser.setUsername(userName);
+
+        when(userService.getOrCreateUser(userName)).thenReturn(newUser);
+
+        int actualDays = vacationService.getRemainingVacationDays(userName);
+        assertEquals(expectedVacationDays, actualDays);
+        verify(userService).getOrCreateUser(userName);
+    }
 }

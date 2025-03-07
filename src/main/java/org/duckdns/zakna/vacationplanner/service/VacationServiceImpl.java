@@ -57,6 +57,6 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public int getRemainingVacationDays(String username) {
-        return 0;
+        return userService.getOrCreateUser(username).getAvailableVacationDays();
     }
 }
