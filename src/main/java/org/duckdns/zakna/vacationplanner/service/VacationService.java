@@ -14,7 +14,5 @@ public interface VacationService {
 
     void cancelVacation(Long id);
 
-    Vacation updateVacation(String description, String username, LocalDate startDate, LocalDate endDate);
-
     int getRemainingVacationDays(String username);
 }
