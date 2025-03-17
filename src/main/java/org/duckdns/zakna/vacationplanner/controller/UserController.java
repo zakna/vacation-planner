@@ -3,12 +3,14 @@ package org.duckdns.zakna.vacationplanner.controller;
 import org.duckdns.zakna.vacationplanner.domain.User;
 import org.duckdns.zakna.vacationplanner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 
 @RestController
@@ -21,14 +23,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/{userName}")
-    public User GetUser(@PathVariable String userName) {
-        return userService.getOrCreateUser(userName);
+    @RequestMapping("/users/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        Optional<User> userOptional = userService.getUser(username);
+        return userOptional.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/users/")
-    public User CreateUser(@RequestParam String userName) {
-       return userService.getOrCreateUser(userName);
+    public ResponseEntity<User> createUser(@RequestParam String username) {
+        if (username == null || username.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(userService.createUser(username));
     }
 }
 

@@ -29,7 +29,7 @@ public class UserServiceTest {
 
         when(userRepository.findByUsername("existing")).thenReturn(Optional.of(user));
 
-        User result = userService.getOrCreateUser("existing");
+        User result = userService.createUser("existing");
         assertEquals("existing", result.getUsername());
     }
 
@@ -41,7 +41,7 @@ public class UserServiceTest {
         when(userRepository.findByUsername("new")).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenReturn(newUser);
 
-        User result = userService.getOrCreateUser("new");
+        User result = userService.createUser("new");
         assertEquals("new", result.getUsername());
     }
 

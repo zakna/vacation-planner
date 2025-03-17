@@ -48,13 +48,13 @@ public class VacationServiceTest {
         expectedVacation.setEndDate(endDate);
         expectedVacation.setUser(expectedUser);
 
-        when(userService.getOrCreateUser(userName)).thenReturn(expectedUser);
+        when(userService.createUser(userName)).thenReturn(expectedUser);
         when(vacationRepository.save(any(Vacation.class))).thenReturn(expectedVacation);
 
         Vacation actualVacation = vacationService.createVacation(Vacation1Description, userName, startDate, endDate);
         assertEquals(expectedVacation, actualVacation);
         verify(vacationRepository).save(any(Vacation.class));
-        verify(userService).getOrCreateUser(any(String.class));
+        verify(userService).createUser(any(String.class));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class VacationServiceTest {
 
         List<Vacation> expectedVacations = List.of(expectedVacation1, expectedVacation2);
 
-        when(userService.getOrCreateUser(userName)).thenReturn(expectedUser);
+        when(userService.createUser(userName)).thenReturn(expectedUser);
         when(vacationRepository.findVacationsByUser(expectedUser)).thenReturn(expectedVacations);
 
         List<Vacation> actualVacations = vacationService.getVacationsByUser(userName);
@@ -147,7 +147,7 @@ public class VacationServiceTest {
 
         List<Vacation> emptyVacationList = new ArrayList<>();
 
-        when(userService.getOrCreateUser(userName)).thenReturn(user);
+        when(userService.createUser(userName)).thenReturn(user);
         when(vacationRepository.save(any(Vacation.class))).thenReturn(expectedVacation);
         when(vacationRepository.findVacationsByUser(user)).thenReturn(emptyVacationList);
 
@@ -162,7 +162,7 @@ public class VacationServiceTest {
 
         List<Vacation> vacationListAfterDeletion = vacationService.getVacationsByUser(userName);
         assertEquals(emptyVacationList, vacationListAfterDeletion);
-        verify(userService, times(2)).getOrCreateUser(userName);
+        verify(userService, times(2)).createUser(userName);
         verify(vacationRepository).save(any(Vacation.class));
         verify(vacationRepository).findVacationsByUser(user);
     }
@@ -176,11 +176,11 @@ public class VacationServiceTest {
         user.setUsername(userName);
         user.setAvailableVacationDays(availableVacationDays);
 
-        when(userService.getOrCreateUser(userName)).thenReturn(user);
+        when(userService.createUser(userName)).thenReturn(user);
 
         int actualDays = vacationService.getRemainingVacationDays(userName);
         assertEquals(availableVacationDays, actualDays);
-        verify(userService).getOrCreateUser(userName);
+        verify(userService).createUser(userName);
 
     }
 
@@ -191,10 +191,10 @@ public class VacationServiceTest {
         User newUser = new User();
         newUser.setUsername(userName);
 
-        when(userService.getOrCreateUser(userName)).thenReturn(newUser);
+        when(userService.createUser(userName)).thenReturn(newUser);
 
         int actualDays = vacationService.getRemainingVacationDays(userName);
         assertEquals(expectedVacationDays, actualDays);
-        verify(userService).getOrCreateUser(userName);
+        verify(userService).createUser(userName);
     }
 }
