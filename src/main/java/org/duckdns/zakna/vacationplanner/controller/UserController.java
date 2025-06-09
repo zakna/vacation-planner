@@ -26,7 +26,8 @@ public class UserController {
     @RequestMapping("/users/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         Optional<User> userOptional = userService.getUser(username);
-        return userOptional.map(ResponseEntity::ok)
+        return userOptional
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
