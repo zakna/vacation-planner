@@ -36,17 +36,6 @@ public class UserControllerTest {
     }
 
     @Test
-    void shouldRetrieveExistingUser2() throws Exception {
-        String userName = "Olivier";
-        User expectedUser = new User();
-        expectedUser.setUsername(userName);
-        when(userService.getUser(userName)).thenReturn(Optional.of(expectedUser));
-        mockMvc.perform(get("/api/users/{username}", userName))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value(userName));
-    }
-
-    @Test
     void shouldNotRetrieveNonExistingUser() throws Exception {
         String userName = "NonExistentUser";
         when(userService.getUser(userName)).thenReturn(Optional.empty());
