@@ -30,7 +30,7 @@ public class UserControllerTest {
         User expectedUser = new User();
         expectedUser.setUserName(userName);
         when(userService.getUser(userName)).thenReturn(Optional.of(expectedUser));
-        mockMvc.perform(get("/api/users/{username}", userName))
+        mockMvc.perform(get("/api/users/{userName}", userName))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value(userName));
     }
@@ -39,7 +39,7 @@ public class UserControllerTest {
     void shouldNotRetrieveNonExistingUser() throws Exception {
         String userName = "NonExistentUser";
         when(userService.getUser(userName)).thenReturn(Optional.empty());
-        mockMvc.perform(get("/api/users/{username}", userName))
+        mockMvc.perform(get("/api/users/{userName}", userName))
                 .andExpect(status().isNotFound());
     }
 
@@ -49,20 +49,20 @@ public class UserControllerTest {
         User user = new User();
         user.setUserName(userName);
         when(userService.createUser(userName)).thenReturn(user);
-        mockMvc.perform(post("/api/users/").param("username", userName))
+        mockMvc.perform(post("/api/users/").param("userName", userName))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value(userName));
     }
 
     @Test
     void shouldReturnBadRequestWhenCreatingUserWithEmptyUsername() throws Exception {
-        mockMvc.perform(post("/api/users/").param("username", ""))
+        mockMvc.perform(post("/api/users/").param("userName", ""))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void shouldReturnBadRequestWhenCreatingUserWithNullUsername() throws Exception {
-        mockMvc.perform(post("/api/users/").param("username", (String) null))
+        mockMvc.perform(post("/api/users/").param("userName", (String) null))
                 .andExpect(status().isBadRequest());
     }
 
@@ -70,7 +70,7 @@ public class UserControllerTest {
     void shouldHandleExceptionWhenUserServiceThrowsException() throws Exception {
         String userName = "problemUser";
         when(userService.getUser(userName)).thenThrow(new RuntimeException("Service error"));
-        mockMvc.perform(get("/api/users/{username}", userName))
+        mockMvc.perform(get("/api/users/{userName}", userName))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -78,7 +78,7 @@ public class UserControllerTest {
     void shouldHandleExceptionWhenUserCreationFails() throws Exception {
         String userName = "problemUser";
         when(userService.createUser(userName)).thenThrow(new RuntimeException("Creation error"));
-        mockMvc.perform(post("/api/users/").param("username", userName))
+        mockMvc.perform(post("/api/users/").param("userName", userName))
                 .andExpect(status().isInternalServerError());
     }
 

@@ -23,8 +23,8 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public Vacation createVacation(String description, String username, LocalDate startDate, LocalDate endDate) {
-        User user = userService.createUser(username);
+    public Vacation createVacation(String description, String userName, LocalDate startDate, LocalDate endDate) {
+        User user = userService.createUser(userName);
         Vacation vacation = new Vacation();
         vacation.setUser(user);
         vacation.setDescription(description);
@@ -36,8 +36,8 @@ public class VacationServiceImpl implements VacationService {
 
 
     @Override
-    public List<Vacation> getVacationsByUser(String username) {
-        return vacationRepository.findVacationsByUser(userService.createUser(username));
+    public List<Vacation> getVacationsByUser(String userName) {
+        return vacationRepository.findVacationsByUser(userService.createUser(userName));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public int getRemainingVacationDays(String username) {
-        return userService.createUser(username).getAvailableVacationDays();
+    public int getRemainingVacationDays(String userName) {
+        return userService.createUser(userName).getAvailableVacationDays();
     }
 }

@@ -22,13 +22,13 @@ public class VacationController {
     }
 
     @PostMapping("/vacations/")
-    public ResponseEntity<Vacation> createVacation(@RequestParam String description, @RequestParam String username, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+    public ResponseEntity<Vacation> createVacation(@RequestParam String description, @RequestParam String userName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         if (description == null || description.isEmpty() ||
-            username == null || username.isEmpty() ||
+            userName == null || userName.isEmpty() ||
             startDate == null || endDate == null) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(vacationService.createVacation(description,username,startDate,endDate));
+        return ResponseEntity.ok(vacationService.createVacation(description, userName, startDate, endDate));
     }
 }
 

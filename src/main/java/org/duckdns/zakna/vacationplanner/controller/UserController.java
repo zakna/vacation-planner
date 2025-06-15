@@ -22,20 +22,20 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @RequestMapping("/users/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username) {
-        Optional<User> userOptional = userService.getUser(username);
+    @RequestMapping("/users/{userName}")
+    public ResponseEntity<User> getUser(@PathVariable String userName) {
+        Optional<User> userOptional = userService.getUser(userName);
         return userOptional
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/users/")
-    public ResponseEntity<User> createUser(@RequestParam String username) {
-        if (username == null || username.isEmpty()) {
+    public ResponseEntity<User> createUser(@RequestParam String userName) {
+        if (userName == null || userName.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(userService.createUser(username));
+        return ResponseEntity.ok(userService.createUser(userName));
     }
 }
 

@@ -32,10 +32,10 @@ public class VacationControllerTest {
         LocalDate vacationEndDate = LocalDate.now().plusDays(1);
 
         String vacationDescription = "vacation-description";
-        String vacationUsername = "vacation-username";
+        String vacationUsername = "vacation-userName";
         int vacationDays = 20;
         User vacationUser = new User();
-        vacationUser.setUserName("vacation-username");
+        vacationUser.setUserName("vacation-userName");
         vacationUser.setAvailableVacationDays(vacationDays);
         Vacation vacation = new Vacation();
         vacation.setDescription(vacationDescription);
@@ -48,7 +48,7 @@ public class VacationControllerTest {
                                         .param("description", vacationDescription)
                                         .param("startDate", String.valueOf(vacationStartDate))
                                         .param("endDate", String.valueOf(vacationEndDate))
-                                        .param("username", vacationUsername))
+                                        .param("userName", vacationUsername))
                                 .andExpect(status().isOk())
                                 .andExpect(jsonPath("$.description").value(vacationDescription))
                                 .andExpect(jsonPath("$.startDate").value(vacationStartDate.toString()))
