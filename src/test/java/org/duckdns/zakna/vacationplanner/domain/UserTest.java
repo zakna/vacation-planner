@@ -15,13 +15,13 @@ public class UserTest {
     @BeforeEach
     public void setUp() {
         user = new User();
-        user.setUsername("olivier");
+        user.setUserName("olivier");
     }
 
 
     @Test
     public void shouldCreateUser() {
-        assertEquals("olivier", user.getUsername());
+        assertEquals("olivier", user.getUserName());
     }
 
     @Test

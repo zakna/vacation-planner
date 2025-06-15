@@ -40,7 +40,7 @@ public class VacationServiceTest {
         LocalDate endDate = LocalDate.of(2025, 3, 15);
 
         User expectedUser = new User();
-        expectedUser.setUsername(userName);
+        expectedUser.setUserName(userName);
 
         Vacation expectedVacation = new Vacation();
         expectedVacation.setDescription(Vacation1Description);
@@ -70,7 +70,7 @@ public class VacationServiceTest {
         LocalDate endDate2 = LocalDate.of(2025, 5, 15);
 
         User expectedUser = new User();
-        expectedUser.setUsername(userName);
+        expectedUser.setUserName(userName);
 
         Vacation expectedVacation1 = new Vacation();
         expectedVacation1.setDescription(Vacation1Description);
@@ -102,7 +102,7 @@ public class VacationServiceTest {
         LocalDate endDate = LocalDate.of(2025, 3, 15);
 
         User expectedUser = new User();
-        expectedUser.setUsername(userName);
+        expectedUser.setUserName(userName);
 
         Vacation expectedVacation = new Vacation();
         expectedVacation.setDescription(Vacation1Description);
@@ -136,7 +136,7 @@ public class VacationServiceTest {
         LocalDate endDate = LocalDate.of(2025, 3, 15);
 
         User user = new User();
-        user.setUsername(userName);
+        user.setUserName(userName);
 
         Vacation expectedVacation = new Vacation();
         expectedVacation.setDescription(vacation1Description);
@@ -173,7 +173,7 @@ public class VacationServiceTest {
         int availableVacationDays = 35;
 
         User user = new User();
-        user.setUsername(userName);
+        user.setUserName(userName);
         user.setAvailableVacationDays(availableVacationDays);
 
         when(userService.createUser(userName)).thenReturn(user);
@@ -185,11 +185,11 @@ public class VacationServiceTest {
     }
 
     @Test
-    public void shouldGetZeroVacationDaysIftheUserIsCreated() {
+    public void shouldGetZeroVacationDaysWhenTheUserIsCreated() {
         String userName = "Olivier";
         int expectedVacationDays = 0;
         User newUser = new User();
-        newUser.setUsername(userName);
+        newUser.setUserName(userName);
 
         when(userService.createUser(userName)).thenReturn(newUser);
 

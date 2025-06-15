@@ -28,11 +28,11 @@ public class UserControllerTest {
     void shouldRetrieveExistingUser() throws Exception {
         String userName = "Olivier";
         User expectedUser = new User();
-        expectedUser.setUsername(userName);
+        expectedUser.setUserName(userName);
         when(userService.getUser(userName)).thenReturn(Optional.of(expectedUser));
         mockMvc.perform(get("/api/users/{username}", userName))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value(userName));
+                .andExpect(jsonPath("$.userName").value(userName));
     }
 
     @Test
@@ -47,11 +47,11 @@ public class UserControllerTest {
     void shouldCreateANewUser() throws Exception {
         String userName = "newUser";
         User user = new User();
-        user.setUsername(userName);
+        user.setUserName(userName);
         when(userService.createUser(userName)).thenReturn(user);
         mockMvc.perform(post("/api/users/").param("username", userName))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value(userName));
+                .andExpect(jsonPath("$.userName").value(userName));
     }
 
     @Test

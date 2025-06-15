@@ -21,7 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true)
-    private String username;
+    private String userName;
     @OneToMany(mappedBy = "user")
     private List<Vacation> vacations;
     private int availableVacationDays;

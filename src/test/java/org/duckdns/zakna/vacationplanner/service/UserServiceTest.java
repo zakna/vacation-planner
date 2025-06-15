@@ -25,24 +25,24 @@ public class UserServiceTest {
     @Test
     public void shouldGetExistingUser() {
         User user = new User();
-        user.setUsername("existing");
+        user.setUserName("existing");
 
-        when(userRepository.findByUsername("existing")).thenReturn(Optional.of(user));
+        when(userRepository.findByUserName("existing")).thenReturn(Optional.of(user));
 
         User result = userService.createUser("existing");
-        assertEquals("existing", result.getUsername());
+        assertEquals("existing", result.getUserName());
     }
 
     @Test
     public void shouldCreateNewUser() {
         User newUser = new User();
-        newUser.setUsername("new");
+        newUser.setUserName("new");
 
-        when(userRepository.findByUsername("new")).thenReturn(Optional.empty());
+        when(userRepository.findByUserName("new")).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenReturn(newUser);
 
         User result = userService.createUser("new");
-        assertEquals("new", result.getUsername());
+        assertEquals("new", result.getUserName());
     }
 
 }

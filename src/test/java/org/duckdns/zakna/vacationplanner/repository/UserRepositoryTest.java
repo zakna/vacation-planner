@@ -17,12 +17,12 @@ public class UserRepositoryTest {
     @Test
     public void testFindByUsername(){
         User user = new User();
-        user.setUsername("test");
+        user.setUserName("test");
         userRepository.save(user);
 
-        User foundUser = userRepository.findByUsername("test").orElse(null);
+        User foundUser = userRepository.findByUserName("test").orElse(null);
 
     assertNotNull(foundUser);
-    assertEquals("test",foundUser.getUsername());
+    assertEquals("test",foundUser.getUserName());
     }
 }

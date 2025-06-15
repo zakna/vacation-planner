@@ -20,17 +20,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(String userName) {
-        return userRepository.findByUsername(userName)
+        return userRepository.findByUserName(userName)
                 .orElseGet(() -> {
                     User user = new User();
-                    user.setUsername(userName);
+                    user.setUserName(userName);
                     return userRepository.save(user);
                 });
     }
 
     @Override
     public Optional<User> getUser(String userName) {
-        return userRepository.findByUsername(userName);
+        return userRepository.findByUserName(userName);
 
     }
 }

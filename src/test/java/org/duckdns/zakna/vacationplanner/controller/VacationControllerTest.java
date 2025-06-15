@@ -35,7 +35,7 @@ public class VacationControllerTest {
         String vacationUsername = "vacation-username";
         int vacationDays = 20;
         User vacationUser = new User();
-        vacationUser.setUsername("vacation-username");
+        vacationUser.setUserName("vacation-username");
         vacationUser.setAvailableVacationDays(vacationDays);
         Vacation vacation = new Vacation();
         vacation.setDescription(vacationDescription);
@@ -53,6 +53,6 @@ public class VacationControllerTest {
                                 .andExpect(jsonPath("$.description").value(vacationDescription))
                                 .andExpect(jsonPath("$.startDate").value(vacationStartDate.toString()))
                                 .andExpect(jsonPath("$.endDate").value(vacationEndDate.toString()))
-                                .andExpect(jsonPath("$.user.username").value(vacationUsername));
+                                .andExpect(jsonPath("$.user.userName").value(vacationUsername));
     }
 }

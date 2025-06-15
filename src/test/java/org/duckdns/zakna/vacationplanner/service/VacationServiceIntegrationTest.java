@@ -24,7 +24,7 @@ public class VacationServiceIntegrationTest {
         LocalDate endDate = LocalDate.of(2025, 3, 15);
 
         User expectedUser = new User();
-        expectedUser.setUsername(userName);
+        expectedUser.setUserName(userName);
 
         Vacation expectedVacation = new Vacation();
         expectedVacation.setDescription(Vacation1Description);
@@ -35,7 +35,7 @@ public class VacationServiceIntegrationTest {
         Vacation actualVacation = vacationService.createVacation(Vacation1Description, userName, startDate, endDate);
         assertEquals(expectedVacation.getStartDate(), actualVacation.getStartDate());
         assertEquals(expectedVacation.getEndDate(), actualVacation.getEndDate());
-        assertEquals(expectedVacation.getUser().getUsername(), actualVacation.getUser().getUsername());
+        assertEquals(expectedVacation.getUser().getUserName(), actualVacation.getUser().getUserName());
         // delete the vacation
         vacationService.cancelVacation(actualVacation.getId());
         assertEquals(0, vacationService.getVacationsByUser(userName).size());

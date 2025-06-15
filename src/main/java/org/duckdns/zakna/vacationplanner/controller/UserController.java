@@ -22,7 +22,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @RequestMapping("/users/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         Optional<User> userOptional = userService.getUser(username);

@@ -49,7 +49,7 @@ public class VacationRepositoryTest {
     public void shouldBeAbleToFindVacationByUser() {
 
         User user = new User();
-        user.setUsername("user");
+        user.setUserName("user");
         userRepository.save(user);
 
         Vacation vacation = new Vacation();
@@ -65,6 +65,6 @@ public class VacationRepositoryTest {
         assertNotNull(foundVacations);
         assertEquals(1, foundVacations.size());
         assertEquals("description", foundVacations.getFirst().getDescription());
-        assertEquals("user", foundVacations.getFirst().getUser().getUsername());
+        assertEquals("user", foundVacations.getFirst().getUser().getUserName());
     }
 }
